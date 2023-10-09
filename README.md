@@ -12,7 +12,6 @@ This project is a web crawler developed as part of the Technion institution proj
 - Configurable scraping parameters.
 - Data storage and export options.
 - Error handling and reporting.
-- ...
 
 ### Prerequisites
 
