@@ -26,4 +26,12 @@ Before running the web crawler, ensure you have the following prerequisites inst
    ```bash
    git clone https://github.com/arielkl9/Technion-Web-Crawler-Project.git
    cd Technion-Web-Crawler-Project
+2. Install project dependencies from the requirements.txt file using pip3:
+
+   ```bash
+   pip3 install -r requirements.txt
+3. Run the web crawler
+
+   ```bash
+   python3 crawler.py
 
