@@ -24,7 +24,6 @@ Before running the web crawler, ensure you have the following prerequisites inst
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/arielkl9/Technion-Web-Crawler-Project
-.git
+   git clone https://github.com/arielkl9/Technion-Web-Crawler-Project.git
    cd Technion-Web-Crawler-Project
 
