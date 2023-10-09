@@ -15,6 +15,7 @@ class Crawler:
             self.start_time = 0
             self.good_urls = []
             self.urls_found = []
+            self.max_threads = 0
             self.thread_counter = 0
             self.sites_looked = 0
             self.menu()
@@ -46,7 +47,7 @@ class Crawler:
     def crawl(self, url):
         if url not in self.urls_found:
             self.urls_found.append(url)
-            with concurrent.futures.ThreadPoolExecutor(max_workers=60) as main_executor:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_threads) as main_executor:
                 html_obj = main_executor.submit(self.get_url,url)
                 self.thread_counter += 1
             try:
@@ -54,7 +55,7 @@ class Crawler:
                     soup = BeautifulSoup(html_obj.result().text, "html.parser")
                     urls = soup.find_all("a")
                     if urls:
-                        with concurrent.futures.ThreadPoolExecutor(max_workers=60) as executor:
+                        with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_threads) as executor:
                             for a_tag in urls:
                                 self.sites_looked += 1
                                 if a_tag["href"] not in self.urls_found:
@@ -174,8 +175,7 @@ f'''\b************************************************************
             print("*******************************************************************\n")
             print("|                                                                 |\n")
             print("|    Options:                                                     |\n")
-            print("|    [1] Use Crawler Only                                         |\n")
-            print("|    [2] Add Some BruteForce!! (In Progress...)                   |\n")
+            print("|    [1] Use Crawler                                              |\n")
             print("|                                                                 |\n")
             print("*******************************************************************\n")
             choise = input()
@@ -226,7 +226,29 @@ f'''\b************************************************************
                 break
             elif choise == "2":
                 self.show_print = False
-                break  
+                break 
+        while True:
+            self.clear_screen()
+            print(r"""
+          ____                             _               
+         / ___|  _ __    __ _  __      __ | |   ___   _ __ 
+        | |     | '__|  / _` | \ \ /\ / / | |  / _ \ | '__|
+        | |___  | |    | (_| |  \ V  V /  | | |  __/ | |   
+         \____| |_|     \__,_|   \_/\_/   |_|  \___| |_|   
+            """)
+            print("*******************************************************************\n")
+            print("|                                                                 |\n")
+            print("|                                                                 |\n")
+            print("|    Set Number Of Threads From 1-60 (1-10 recommended)           |\n")
+            print("|                                                                 |\n")
+            print("|                                                                 |\n")
+            print("*******************************************************************\n")
+            choise = input()
+            max_threads = range(1, 60)
+            string_array = [str(x) for x in max_threads]
+            if choise in string_array:
+                self.max_threads = int(choise)
+                break
         self.url = self.set_url()
         print(f"Crawling at: {self.url}\nTry to stay quiet")
     
